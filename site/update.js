@@ -242,6 +242,7 @@ function update()
 		weatherUpdateFunction();
 	}
 
+	document.getElementById("trafficError").style.display = "none";
 	document.getElementById("error").style.display = "none";
 	document.getElementById("container").style.opacity = "1";
 
@@ -265,10 +266,11 @@ function update()
 			update_view(json);
 		} catch (e) {
 			if (e instanceof SyntaxError) // invalid json document received
-				document.getElementById("error").style.display = "block";
-				document.getElementById("container").style.opacity = "0.2";
+				document.getElementById("trafficError").style.display = "block";
+				//document.getElementById("error").style.display = "block";
+				//document.getElementById("container").style.opacity = "0.2";
 				console.log('api returned invalid json')/*TODO*/;
-			throw e;
+			//throw e;
 		}
 	};
 	req.send();
