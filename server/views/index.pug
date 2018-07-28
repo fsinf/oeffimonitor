@@ -7,7 +7,7 @@ block head
 		script(type='text/javascript', src='js/weather/weather.js')
 	script(type='text/javascript', src='update.js')
 	script(type='text/javascript', src='settings.js')
-	link(href='/themes/' + theme + '/style.css', type='text/css', rel='stylesheet')
+	link(href='/themes/' + theme + '/css/style.css', type='text/css', rel='stylesheet')
 
 block content
 	if showWeather
@@ -15,7 +15,21 @@ block content
 			h1
 				span.error#weatherError ⚠
 				| Weather Forecast
-			object#forecast(type="image/svg+xml",data="/themes/"+theme+"/assets/weather.svg")
+				span#lastWeatherUpdate
+			#forecast
+				#current(class="weatherBlock")
+					//- object#currentIcon(class="currentIcon", type='image/svg+xml', data='/icons/wi-train.svg')-->
+					img#currentIcon(class="currentIcon", src='/icons/wi-train.svg')
+					hr
+					div#currentTime now
+					div#currentTemperature
+				each val in [0,1,2,3,4,5]
+					div(class="weatherBlock")
+						//- object(class="forecastIcon", type='image/svg+xml', data='/icons/wi-train.svg')-->
+						img(class="forecastIcon", src='/icons/wi-train.svg')
+						hr
+						div(class="forecastTime")
+						div(class="forecastTemperature")
 	#container
 		h1
 			span.error#trafficError ⚠
@@ -23,4 +37,4 @@ block content
 			span#currentTime
 	#error
 		h2 Oh noes, something broke!
-		p Sorry but Öffimonitor will be back soon.
+		p Sorry, Öffimonitor will be back soon.

@@ -44,9 +44,9 @@ function onError(error) {
 		throw error;
 	}
 
-	var bind = typeof port === 'string'
-	? 'Pipe ' + port
-	: 'Port ' + port;
+	var bind = typeof settings.listen_port === 'string'
+	? 'Pipe ' + settings.listen_port
+	: 'Port ' + settings.listen_port;
 
 	// handle specific listen errors with friendly messages
 	switch (error.code) {

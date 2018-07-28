@@ -2,43 +2,16 @@ var WeatherWidget = (function () {
 
 	return WeatherWidget;
 
-	function WeatherWidget(svg) {
-		var weatherIcon = svg.getElementById('currentWeatherIcon');
-		var currentTemperature = svg.getElementById('currentTemperature');
-		var forecastIcons = svg.getElementsByClassName('weatherIcon');
-		var forecastTimes = svg.getElementsByClassName('forecastTime');
-		var forecastTemperatures = svg.getElementsByClassName('forecastTemperature');
-		var lastUpdate = svg.getElementById('lastUpdate');
+	function WeatherWidget(div) {
+		var currentIcon = document.getElementById('currentIcon');
+		var currentTemperature = document.getElementById('currentTemperature');
+		var forecastIcons = div.getElementsByClassName('forecastIcon');
+		var forecastTimes = div.getElementsByClassName('forecastTime');
+		var forecastTemperatures = div.getElementsByClassName('forecastTemperature');
+		var lastUpdate = document.getElementById('lastWeatherUpdate');
 		this.setCurrentTemperature = setCurrentTemperature;
 		this.setCurrentIcon = setCurrentIcon;
 		this.setForecasts = setForecasts;
-		this.icons = {
-			mostlyCloudy: '#bkn',
-			blizzard: '#blizzard',
-			cold: '#cold',
-			dust: '#du',
-			fewClouds: '#few',
-			fog: '#fg',
-			smoke: '#fu',
-			freezingRain: '#fzra',
-			rainShowersInVicinity: '#hi_shwrs',
-			hot: '#hot',
-			icePellets: '#ip',
-			mix: '#mix',
-			overcast: '#ovc',
-			rain: '#ra',
-			rainIcePellets: '#raip',
-			rainSnow: '#rasn',
-			partlyCloudy: '#sct',
-			sctfg: '#sctfg',
-			thunderstormInVicinity: '#scttsra',
-			rainShowers: '#shra',
-			clearSky: '#skc',
-			snow: '#sn',
-			thunderstormRain: '#tsra',
-			wind: '#wind'
-		};
-
 
 		/**
 		* setForecasts - updates the weather forecast information in the svg
@@ -52,9 +25,9 @@ var WeatherWidget = (function () {
 			refreshLastUpdate();
 			forecasts.forEach(function processForecast(forecast, index){
 				if (forecastIcons[index] && forecastTimes[index] && forecastTemperatures[index]) {
-					setIcon(forecastIcons[index],this.icons[forecast.iconId]);
+					setIcon(forecastIcons[index],forecast.iconId);
 					setText(forecastTimes[index],forecast.time);
-					setText(forecastTemperatures[index],forecast.temperature.toFixed(0)+ ' °C');
+					setText(forecastTemperatures[index],forecast.temperature.toFixed(0)+ '°C');
 				}
 			}, this);
 		}
@@ -66,7 +39,7 @@ var WeatherWidget = (function () {
 		*/
 		function setCurrentIcon(iconId) {
 			refreshLastUpdate();
-			setIcon(weatherIcon,this.icons[iconId]);
+			setIcon(currentIcon,iconId);
 		}
 
 		/**
@@ -76,7 +49,7 @@ var WeatherWidget = (function () {
 		*/
 		function setCurrentTemperature(temperature) {
 			refreshLastUpdate();
-			setText(currentTemperature, temperature.toFixed(0)+" °C");
+			setText(currentTemperature, temperature.toFixed(0)+"°C");
 		}
 
 		/**
@@ -85,25 +58,17 @@ var WeatherWidget = (function () {
 		* @param  {Node} node DOM node to set text of
 		* @param  {string} text text content to set
 		*/
-		function setText(node,text) {
-			var textNode = svg.createTextNode(text);
-			if (node.firstChild !== null) {
-			node.replaceChild(textNode, node.firstChild);
-			} else {
-			node.appendChild(textNode);
-			}
+		function setText(node, text) {
+			node.innerText = text;
 		}
 
 		function setIcon(node, iconId) {
-			node.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', iconId);
-		}
-
-		function getIcon(node) {
-			return node.getAttributeNS('http://www.w3.org/1999/xlink', 'href');
+			node.src = '/icons/wi-' + iconId + '.svg'; // img
+			//node.data = '/icons/wi-' + iconId + '.svg'; // object
 		}
 
 		function refreshLastUpdate() {
-			setText(lastUpdate,'Last Update ' + formatTime(new Date()) );
+			lastUpdate.innerText = 'Last Update ' + formatTime(new Date());
 		}
 
 		function formatTime(date) {

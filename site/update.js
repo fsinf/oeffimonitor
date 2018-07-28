@@ -121,7 +121,12 @@ function display_table(table)
 function update_view(json)
 {
 	var table = make_table(["Departure", "Line", "Closest Station", "Destination"]);
-	var mon = json.data.monitors;
+	var mon;
+	if (json.data) {
+		mon = json.data.monitors;
+	} else {
+		mon = [];
+	}
 
 	var values = [];
 
@@ -193,13 +198,19 @@ function formatLines(line)
 {
 	if (line === "U2") {
 		var img = document.createElement("img");
-		img.src = "assets/u2.svg";
+		img.src = "img/u2.svg";
 		img.width = 40;
 		img.height = 40;
 		return img;
 	} else if (line === "U3") {
 		var img = document.createElement("img");
-		img.src = "assets/u3.svg";
+		img.src = "img/u3.svg";
+		img.width = 40;
+		img.height = 40;
+		return img;
+	} else if (line === "U4") {
+		var img = document.createElement("img");
+		img.src = "img/u3.svg";
 		img.width = 40;
 		img.height = 40;
 		return img;
@@ -245,7 +256,7 @@ function update()
 
 		// req.status == 0 in case of a local file (e.g. json file saved for testing)
 		if (req.status !== 200 && req.status !== 0) {
-			console.log('no connection to api');
+			console.log('no connection to api (' + req.status + ')');
 			return;
 		}
 
