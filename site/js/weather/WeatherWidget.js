@@ -63,8 +63,10 @@ var WeatherWidget = (function () {
 		}
 
 		function setIcon(node, iconId) {
-			node.src = '/icons/wi-' + iconId + '.svg'; // img
-			//node.data = '/icons/wi-' + iconId + '.svg'; // object
+			svg = node.contentDocument.getElementById('weatherIcon');
+			if (svg !== null) {
+				svg.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', '#wi-'+iconId);
+			}
 		}
 
 		function refreshLastUpdate() {

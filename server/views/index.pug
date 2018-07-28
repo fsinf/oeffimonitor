@@ -18,16 +18,14 @@ block content
 				span#lastWeatherUpdate
 			#forecast
 				#current(class="weatherBlock")
-					//- object#currentIcon(class="currentIcon", type='image/svg+xml', data='/icons/wi-train.svg')-->
-					img#currentIcon(class="currentIcon", src='/icons/wi-train.svg')
-					hr
+					object#currentIcon(class="currentIcon", type='image/svg+xml', data='/themes/' + theme + '/img/weather.svg')
+					hr(class="weatherHR")
 					div#currentTime now
 					div#currentTemperature
 				each val in [0,1,2,3,4,5]
 					div(class="weatherBlock")
-						//- object(class="forecastIcon", type='image/svg+xml', data='/icons/wi-train.svg')-->
-						img(class="forecastIcon", src='/icons/wi-train.svg')
-						hr
+						object#forecastIcon(class="forecastIcon", type='image/svg+xml', data='/themes/' + theme + '/img/weather.svg')
+						hr(class="weatherHR")
 						div(class="forecastTime")
 						div(class="forecastTemperature")
 	#container
