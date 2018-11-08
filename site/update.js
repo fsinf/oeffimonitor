@@ -210,7 +210,7 @@ function formatLines(line)
 		return img;
 	} else if (line === "U4") {
 		var img = document.createElement("img");
-		img.src = "img/u3.svg";
+		img.src = "img/u4.svg";
 		img.width = 40;
 		img.height = 40;
 		return img;

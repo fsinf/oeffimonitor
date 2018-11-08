@@ -1,14 +1,17 @@
 version: "3"
 services:
   oeffimonitor:
-    image: "node:alpine"
+    build:
+      context: "../"
+      dockerfile: docker-compose/Dockerfile
+    image: "oeffimonitor:main"
     user: "node"
     working_dir: /home/node/oeffimonitor
     environment:
       - NODE_ENV=production
       - DEBUG=*:*
     volumes:
-      - ./:/home/node/oeffimonitor
+      - ../:/home/node/oeffimonitor
     ports:
         - "8080:8080"
     command: "/usr/local/bin/node server/httpd.js"

@@ -12,7 +12,7 @@
 body {
 	margin:0 0.5em 0 0.5em;
 	font-family: roboto, Helvetica, Arial, sans-serif;
-	background-color: #14621d;
+	background-color: #084023;
 	color: black;
 	font-size:45px;
 }
@@ -44,7 +44,7 @@ table {
 }
 
 thead { font-weight: bold; }
-tbody > tr:nth-child(2n) { background: #eee; }
+tbody > tr:nth-child(2n) { background: #ffd300; }
 /*tbody > tr:nth-child(2n+1) { background: #333; }*/
 td { border: none; }
 tr > td:nth-child(1) {
@@ -159,7 +159,7 @@ td {
 
 .weatherHR {
 	margin-top: 0px;
-	border-color: #ffb400;
+	border-color: #ffd300;
 }
 
 .forecastIcon {
@@ -179,12 +179,12 @@ td {
 
 #currentTemperature {
 	font-weight: bold;
-	color: #ffb400;
+	color: #ffd300;
 }
 
 .forecastTemperature {
 	font-weight: bold;
-	color: #ffb400;
+	color: #ffd300;
 }
 
 div {
