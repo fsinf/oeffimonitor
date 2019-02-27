@@ -5,6 +5,7 @@ module.exports = function(app, route) {
 		res.render('index', {
 			title: settings.title,
 			theme: settings.theme,
+			weather_title: settings.weather_title,
 			showWeather: settings.api_urls.weather && settings.api_urls.forecast
 		});
 	});
