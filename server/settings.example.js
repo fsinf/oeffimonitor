@@ -26,6 +26,7 @@ var api_urls = {
 
 module.exports = {
 	'title':					'Next public transport connections from Metalab',
+	'weather_title':			'Weather Forecast',
 	'theme':					'metalab',
   'api_urls'        :   api_urls,
 	'api_key'         :   api_key,
