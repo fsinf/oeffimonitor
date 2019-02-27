@@ -196,7 +196,13 @@ function formatTimestamp(timestamp)
 
 function formatLines(line)
 {
-	if (line === "U2") {
+	if (line === "U1") {
+		var img = document.createElement("img");
+		img.src = "img/u1.svg";
+		img.width = 40;
+		img.height = 40;
+		return img;
+	} else if (line === "U2") {
 		var img = document.createElement("img");
 		img.src = "img/u2.svg";
 		img.width = 40;
@@ -211,6 +217,12 @@ function formatLines(line)
 	} else if (line === "U4") {
 		var img = document.createElement("img");
 		img.src = "img/u4.svg";
+		img.width = 40;
+		img.height = 40;
+		return img;
+	} else if (line === "U6") {
+		var img = document.createElement("img");
+		img.src = "img/u6.svg";
 		img.width = 40;
 		img.height = 40;
 		return img;
