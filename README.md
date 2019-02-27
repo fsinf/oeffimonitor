@@ -15,6 +15,10 @@ Written in Javascript for use on a Raspberry Pi in a CSS3 capable browser in Kio
 
 Happy hacking!
 
+### Station ids (WL RBL Data)
+
+see https://till.mabe.at/rbl/
+
 ### Weather forecast
 
 See settings.example.js and add weather and forecast api_urls:
