@@ -220,6 +220,12 @@ function formatLines(line)
 		img.width = 40;
 		img.height = 40;
 		return img;
+	} else if (line === "U5") {
+		var img = document.createElement("img");
+		img.src = "img/u5.svg";
+		img.width = 40;
+		img.height = 40;
+		return img;
 	} else if (line === "U6") {
 		var img = document.createElement("img");
 		img.src = "img/u6.svg";
