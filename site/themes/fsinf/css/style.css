@@ -130,6 +130,7 @@ td {
     height:6.75em;
     /*border:1px dotted black;*/
     display: flex;
+	width: 100%;
 }
 
 #container {
