@@ -4,10 +4,10 @@ xinit needs access to tty:
 usermod -aG tty pi
 ```
 
-install xserver-xorg-legacy Xorg Wrapper script
+install xserver-xorg-legacy Xorg Wrapper script, xinit and chromium
 
 ```
-apt install xserver-xorg-legacy
+apt install xserver-xorg-legacy xinit chromium-browser
 ```
 
 /etc/X11/Xwrapper.config needs to be modified:
