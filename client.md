@@ -53,17 +53,20 @@ cp cursors nach .icons/blank
 Xcursor.theme: blank
 ```
 
-/etc/systemd/system/xinit-login.service
+/etc/systemd/system/oeffimonitor.service
 
 ```
 [Unit]
 After=systemd-user-sessions.service
 
 [Service]
-ExecStart=/bin/su pi -l -c /usr/bin/startx
+User=pi
+ExecStart=/usr/bin/startx -- -nocursor
+Restart=always
+RestartSec=30s
 
 [Install]
 WantedBy=multi-user.target
 ```
 
-
+to rotate the screen in a raspberry pi see option display\_rotate for /boot/config.txt
