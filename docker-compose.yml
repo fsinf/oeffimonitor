@@ -2,6 +2,7 @@ version: '2'
 services:
   oeffimonitor:
     build: .
+    image: "oeffimonitor:latest"
     container_name: oeffimonitor
     ports:
       - "8080:8080"
