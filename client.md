@@ -33,13 +33,14 @@ exec /usr/bin/chromium-browser \
      --window-size=$(fbset -s | awk '$1 == "geometry" { print $2","$3 }') \
      --start-fullscreen \
      --disable \
-     --disable-translate \
      --disable-infobars \
      --disable-suggestions-service \
      --disable-save-password-bubble \
      --disable-bundled-ppapi-flash \
      --disable-extensions \
-     --disable-notifications
+     --disable-notifications \
+     --no-pings \
+     --noerrdialogs
 ```
 
 blank cursor
@@ -61,7 +62,7 @@ After=systemd-user-sessions.service
 
 [Service]
 User=pi
-ExecStartPre=/bin/rm -rf /dev/shm/chrome-profile /dev/shm/chrome-cache
+ExecStartPre=-/bin/rm -r /dev/shm/chrome-profile /dev/shm/chrome-cache
 ExecStart=/usr/bin/startx -- -nocursor
 Restart=always
 RestartSec=30s
