@@ -232,6 +232,12 @@ function formatLines(line)
 		img.width = 40;
 		img.height = 40;
 		return img;
+	} else if (line === "WLB") {
+		var img = document.createElement("img");
+		img.src = "img/wlb.svg";
+		img.width = 40;
+		img.height = 40;
+		return img;
 	} else if (line.indexOf("D") > -1 || line.match(/^[0-9]+$/) != null) {
 		var element = document.createElement("span");
 		element.className = "tram";
