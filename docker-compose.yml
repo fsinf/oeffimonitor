@@ -1,0 +1,10 @@
+version: '2'
+services:
+  oeffimonitor:
+    build: .
+    container_name: oeffimonitor
+    ports:
+      - "8080:8080"
+    restart: always
+    environment:
+      - NODE_ENV=production
