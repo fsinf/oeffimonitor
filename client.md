@@ -61,6 +61,7 @@ After=systemd-user-sessions.service
 
 [Service]
 User=pi
+ExecStartPre=/bin/rm -rf /dev/shm/chrome-profile /dev/shm/chrome-cache
 ExecStart=/usr/bin/startx -- -nocursor
 Restart=always
 RestartSec=30s
