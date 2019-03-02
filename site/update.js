@@ -253,8 +253,8 @@ function formatTimestamp(timestamp)
 
 function formatLines(line)
 {
-	let img;
-	let element;
+	let img = null;
+	let element = null;
 
 	if (line === "U1") {
 		img = document.createElement("img");
@@ -288,11 +288,11 @@ function formatLines(line)
 		element.className = "nightline";
 	}
 
-	if (img !== null) {
+	if (img != null) {
 		img.width = 40;
 		img.height = 40;
 		return img;
-	} else if (element !== null) {
+	} else if (element != null) {
 		element.innerHTML = line;
 		return element;
 	} else {
