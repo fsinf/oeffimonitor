@@ -169,6 +169,8 @@ function update_view(json)
 						continue;
 					}
 				}
+
+				exclude = true;
 			}
 
 			if (exclude) {
