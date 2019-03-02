@@ -253,61 +253,46 @@ function formatTimestamp(timestamp)
 
 function formatLines(line)
 {
+	let img;
+	let element;
+
 	if (line === "U1") {
-		let img = document.createElement("img");
+		img = document.createElement("img");
 		img.src = "img/u1.svg";
-		img.width = 40;
-		img.height = 40;
-		return img;
 	} else if (line === "U2") {
-		let img = document.createElement("img");
+		img = document.createElement("img");
 		img.src = "img/u2.svg";
-		img.width = 40;
-		img.height = 40;
-		return img;
 	} else if (line === "U3") {
-		let img = document.createElement("img");
+		img = document.createElement("img");
 		img.src = "img/u3.svg";
-		img.width = 40;
-		img.height = 40;
-		return img;
 	} else if (line === "U4") {
-		let img = document.createElement("img");
+		img = document.createElement("img");
 		img.src = "img/u4.svg";
-		img.width = 40;
-		img.height = 40;
-		return img;
 	} else if (line === "U5") {
-		let img = document.createElement("img");
+		img = document.createElement("img");
 		img.src = "img/u5.svg";
-		img.width = 40;
-		img.height = 40;
-		return img;
 	} else if (line === "U6") {
-		let img = document.createElement("img");
+		img = document.createElement("img");
 		img.src = "img/u6.svg";
-		img.width = 40;
-		img.height = 40;
-		return img;
 	} else if (line === "WLB") {
-		let img = document.createElement("img");
+		img = document.createElement("img");
 		img.src = "img/wlb.svg";
-		img.width = 40;
-		img.height = 40;
-		return img;
 	} else if (line.indexOf("D") > -1 || line.match(/^[0-9]+$/) != null) {
-		let element = document.createElement("span");
+		element = document.createElement("span");
 		element.className = "tram";
-		element.innerHTML = line;
-		return element;
 	} else if (line.indexOf("A") > -1) {
-		let element = document.createElement("span");
+		element = document.createElement("span");
 		element.className = "bus";
-		element.innerHTML = line;
-		return element;
 	} else if (line.indexOf("N") > -1) {
 		let element = document.createElement("span");
 		element.className = "nightline";
+	}
+
+	if (img !== null) {
+		img.width = 40;
+		img.height = 40;
+		return img;
+	} else if (element !== null) {
 		element.innerHTML = line;
 		return element;
 	} else {
