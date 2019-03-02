@@ -120,7 +120,7 @@ function display_table(table)
 
 function update_view(json)
 {
-	var table = make_table(["Departure", "Line", "Closest Station", "Destination"]);
+	var table = make_table(["Departure", "Line", "Station", "Destination"]);
 	var mon;
 	if (json.data) {
 		mon = json.data.monitors;
@@ -143,6 +143,36 @@ function update_view(json)
 				mon[i].lines[l].name !== "VRT") {
 				var dep = mon[i].lines[l].departures.departure;
 			} else {
+				continue;
+			}
+
+			// exclude duplicated hosts (happens if you have multiple stations serve the same line)
+			var exclude = false;
+			for (var x = 0; x < exclusions.length; x++) {
+				if ('name' in exclusions[x]) {
+					// exclusion specifies different name
+					if (exclusions[x].name !== mon[i].lines[l].name) {
+						continue;
+					}
+				}
+
+				if ('station' in exclusions[x]) {
+					// exclusion specifies different station
+					if (exclusions[x].station !== mon[i].locationStop.properties.title) {
+						continue;
+					}
+				}
+
+				if ('towards' in exclusions[x]) {
+					// exclusion specifies different destination
+					if (exclusions[x].towards !== mon[i].lines[l].towards) {
+						continue;
+					}
+				}
+			}
+
+			if (exclude) {
+				// skip this entry
 				continue;
 			}
 
