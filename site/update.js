@@ -51,10 +51,6 @@ function make_row(table, entry)
 	let waitTimeString = formatTime(entry.timestamp);
 	let waitMs = entry.timestamp - currentTime;
 	let waitMinutes = Math.floor(waitMs / 60000);
-	let waitHours = Math.floor(waitMinutes / 60);
-	if (waitHours) {
-		waitMinutes -= 60;
-	}
 	let waitSeconds = ((waitMs % 60000) / 1000).toFixed(0);
 
 	if (waitMs < 0 || waitMs < entry.unreachTime*1000) { return false; }
@@ -74,7 +70,7 @@ function make_row(table, entry)
 	tdTimeString.className="departureTime";
 	tdTime.appendChild(tdTimeString);
 
-	tdTime.appendChild(document.createTextNode("\u00A0+" + (waitHours ? waitHours + 'h' : '') + (waitMinutes < 10 ? '0' : '') + waitMinutes + "m"));
+	tdTime.appendChild(document.createTextNode("\u00A0+" + waitMinutes));
 	tr.appendChild(tdTime);
 
 	let tdLine = document.createElement("td");
