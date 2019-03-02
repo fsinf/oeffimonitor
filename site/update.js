@@ -131,9 +131,11 @@ function update_view(json)
 	var values = [];
 
 	//fetch filter(s)
-	let params = new URLSearchParams(document.location.search.substring(1));
-	let flines = params.get("flines"); //filter for transportation line(s)
-	let fline_array = flines.toUpperCase().split(",");
+	var params = new URLSearchParams(document.location.search.substring(1));
+	var flines = params.get("flines"); //filter for transportation line(s)
+	if (flines != null) {
+		let fline_array = flines.toUpperCase().split(",");
+	}
 
 	// XXX This part particularly unfinished:
 	// TODO sort by time
@@ -178,7 +180,7 @@ function update_view(json)
 				exclude = true;
 			}
 
-			if (fline_array.length > 0) {
+			if (fline_array != null) {
 				if (!(fline_array.includes(mon[i].lines[l].name))) {
 					exclude = true;
 				}
