@@ -74,7 +74,7 @@ function make_row(table, entry)
 	tdTimeString.className="departureTime";
 	tdTime.appendChild(tdTimeString);
 
-	tdTime.appendChild(document.createTextNode("\u00A0+" + (waitHours ? waitHours + 'h' : '') + (waitMinutes < 10 ? '0' : '') + waitMinutes + "m" + /*(waitSeconds < 10 ? '0' : '') + */Math.floor(waitSeconds / 10) + "0s"));
+	tdTime.appendChild(document.createTextNode("\u00A0+" + (waitHours ? waitHours + 'h' : '') + (waitMinutes < 10 ? '0' : '') + waitMinutes + "m"));
 	tr.appendChild(tdTime);
 
 	var tdLine = document.createElement("td");
