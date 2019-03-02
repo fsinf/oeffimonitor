@@ -176,13 +176,7 @@ function update_view(json)
 			let params = new URLSearchParams(document.location.search.substring(1));
 			let flines = params.get("flines");
 			if (flines != null) {
-				let excludeLineFilter = true;
-				flines.split(",").forEach(function(fline, index, array) {
-					if 	(fline != null && fline === mon[i].lines[l].name) {
-						excludeLineFilter=false;
-					}
-				});
-				if (excludeLineFilter == true) {
+				if (!(flines.split(",").includes(mon[i].lines[l].name))) {
 					exclude = true;
 				}
 			}
