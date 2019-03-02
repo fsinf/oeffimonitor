@@ -284,7 +284,7 @@ function formatLines(line)
 		element = document.createElement("span");
 		element.className = "bus";
 	} else if (line.indexOf("N") > -1) {
-		let element = document.createElement("span");
+		element = document.createElement("span");
 		element.className = "nightline";
 	}
 
