@@ -28,13 +28,13 @@ var /*const*/ debug = false;
 /* these might be prettier in OO, but I really don't care enough right now */
 function make_table(head)
 {
-	var table = document.createElement('table');
-	var thead = document.createElement('thead');
-	var tbody = document.createElement('tbody');
-	var tr = document.createElement('tr');
+	let table = document.createElement('table');
+	let thead = document.createElement('thead');
+	let tbody = document.createElement('tbody');
+	let tr = document.createElement('tr');
 
-	for (var i = 0; i < head.length; i++) {
-		var td = document.createElement("td");
+	for (let i = 0; i < head.length; i++) {
+		let td = document.createElement("td");
 		td.appendChild(document.createTextNode(head[i]));
 		tr.appendChild(td);
 	}
@@ -47,20 +47,20 @@ function make_table(head)
 
 function make_row(table, entry)
 {
-	var currentTime = new Date().getTime();
-	var waitTimeString = formatTime(entry.timestamp);
-	var waitMs = entry.timestamp - currentTime;
-	var waitMinutes = Math.floor(waitMs / 60000);
-	var waitHours = Math.floor(waitMinutes / 60);
+	let currentTime = new Date().getTime();
+	let waitTimeString = formatTime(entry.timestamp);
+	let waitMs = entry.timestamp - currentTime;
+	let waitMinutes = Math.floor(waitMs / 60000);
+	let waitHours = Math.floor(waitMinutes / 60);
 	if (waitHours) {
 		waitMinutes -= 60;
 	}
-	var waitSeconds = ((waitMs % 60000) / 1000).toFixed(0);
+	let waitSeconds = ((waitMs % 60000) / 1000).toFixed(0);
 
 	if (waitMs < 0 || waitMs < entry.unreachTime*1000) { return false; }
 
-	var tr = document.createElement("tr");
-	var tdTime = document.createElement("td");
+	let tr = document.createElement("tr");
+	let tdTime = document.createElement("td");
 	if (waitMs < entry.walkTime * 1000) {
 		tdTime.className = "time supersoon";
 	} else if (waitMs < (entry.walkTime + 180) * 1000) {
@@ -69,7 +69,7 @@ function make_row(table, entry)
 		tdTime.className = "time";
 	}
 
-	var tdTimeString = document.createElement("b");
+	let tdTimeString = document.createElement("b");
 	tdTimeString.appendChild(document.createTextNode(waitTimeString));
 	tdTimeString.className="departureTime";
 	tdTime.appendChild(tdTimeString);
@@ -77,7 +77,7 @@ function make_row(table, entry)
 	tdTime.appendChild(document.createTextNode("\u00A0+" + (waitHours ? waitHours + 'h' : '') + (waitMinutes < 10 ? '0' : '') + waitMinutes + "m"));
 	tr.appendChild(tdTime);
 
-	var tdLine = document.createElement("td");
+	let tdLine = document.createElement("td");
 
 	if (typeof entry.line === "object") {
 		tdLine.appendChild(entry.line);
@@ -86,11 +86,11 @@ function make_row(table, entry)
 	}
 	tr.appendChild(tdLine);
 
-	var tdStop = document.createElement("td");
+	let tdStop = document.createElement("td");
 	tdStop.appendChild(document.createTextNode(entry.stop));
 	tr.appendChild(tdStop);
 
-	var tdTowards = document.createElement("td");
+	let tdTowards = document.createElement("td");
 	if (debug)
 		console.log(capitalizeFirstLetter(entry.towards));
 	tdTowards.appendChild(document.createTextNode(capitalizeFirstLetter(entry.towards)));
@@ -101,11 +101,11 @@ function make_row(table, entry)
 
 function display_table(table)
 {
-	var overviewElement;
+	let overviewElement;
 
 	// fall back to inserting into document.body if no previous "overview"
 	// element was found
-	var parentElement = document.getElementById('container');
+	let parentElement = document.getElementById('container');
 
 	// dispose of the previous display table (if any)
        	if ((overviewElement = document.getElementById('overview'))) {
@@ -120,46 +120,49 @@ function display_table(table)
 
 function update_view(json)
 {
-	var table = make_table(["Latency", "Port", "Source", "Destination"]);
-	var mon;
+	let table = make_table(["Latency", "Port", "Source", "Destination"]);
+	let mon;
 	if (json.data) {
 		mon = json.data.monitors;
 	} else {
 		mon = [];
 	}
 
-	var values = [];
+	let values = [];
 
 	//fetch filter(s)
-	var params = new URLSearchParams(document.location.search.substring(1));
-	var flines = params.get("flines"); //filter for transportation line(s)
-	if (flines != null) {
-		var fline_array = flines.toUpperCase().split(",");
+	let params = new URLSearchParams(document.location.search.substring(1));
+	let flines = params.get("flines"); //filter for transportation line(s)
+    let fline_array;
+
+    if (flines != null) {
+		fline_array = flines.toUpperCase().split(",");
 	}
-	var fdests = params.get("fdests");
+	let fdests = params.get("fdests");
+    let fdest_array;
 	if (fdests != null) {
-		var fdest_array = fdests.toLowerCase().split(",");
+		fdest_array = fdests.toLowerCase().split(",");
 	}
 
 	// XXX This part particularly unfinished:
 	// TODO sort by time
-	for (var i = 0; i < mon.length; i++) {
-		var lines = mon[i].lines;
-		var walkTime = walkTimes[mon[i].locationStop.properties.title] ? walkTimes[mon[i].locationStop.properties.title].walkTime : 480;
-		var unreachTime = walkTimes[mon[i].locationStop.properties.title] ? walkTimes[mon[i].locationStop.properties.title].unreachTime : 0;
+	for (let i = 0; i < mon.length; i++) {
+		let lines = mon[i].lines;
+		let walkTime = walkTimes[mon[i].locationStop.properties.title] ? walkTimes[mon[i].locationStop.properties.title].walkTime : 480;
+		let unreachTime = walkTimes[mon[i].locationStop.properties.title] ? walkTimes[mon[i].locationStop.properties.title].unreachTime : 0;
 
-		for (var l = 0; l < lines.length; l++) {
-
+		for (let l = 0; l < lines.length; l++) {
+            let dep;
 			if (mon[i].lines[l].towards !== "BETRIEBSSCHLUSS ! BENÜTZEN SIE BITTE DIE NIGHTLINE" &&
 				mon[i].lines[l].name !== "VRT") {
-				var dep = mon[i].lines[l].departures.departure;
+				dep = mon[i].lines[l].departures.departure;
 			} else {
 				continue;
 			}
 
 			// exclude duplicated hosts (happens if you have multiple stations serve the same line)
-			var exclude = false;
-			for (var x = 0; x < exclusions.length; x++) {
+			let exclude = false;
+			for (let x = 0; x < exclusions.length; x++) {
 				if ('name' in exclusions[x]) {
 					// exclusion specifies different name
 					if (exclusions[x].name !== mon[i].lines[l].name) {
@@ -200,7 +203,7 @@ function update_view(json)
 				continue;
 			}
 
-			for (var j = 0; j < dep.length; j++) {
+			for (let j = 0; j < dep.length; j++) {
 				if (dep[j].departureTime.timeReal === undefined && dep[j].departureTime.timePlanned === undefined) {
 					if (debug)
 						console.log({"timestamp": dep[j].departureTime.timePlanned, "walkTime": walkTime, "unreachTime": unreachTime, "line": formatLines(lines[l].name), "stop": mon[i].locationStop.properties.title, "towards": lines[l].towards}); // FIXME: console.log doesn't seem to handle objects, if you need this, turn it into a string
@@ -218,7 +221,7 @@ function update_view(json)
 		//return parseFloat(a.timestamp + a.walkTime * 60 * 1000) - parseFloat(b.timestamp + b.walkTime * 60 * 1000);
 	});
 
-	for (var i = 0; i < values.length; i++) {
+	for (let i = 0; i < values.length; i++) {
 		if (debug)
 			console.log(values[i]);
 		make_row(table, values[i]);
@@ -228,11 +231,11 @@ function update_view(json)
 }
 
 function formatTime(timestamp) {
-	var date = new Date(timestamp);
-	var hours = "0" + date.getHours();
-	var minutes = "0" + date.getMinutes();
+	let date = new Date(timestamp);
+	let hours = "0" + date.getHours();
+	let minutes = "0" + date.getMinutes();
 
-	var formattedTime = hours.substr(-2) + ':' + minutes.substr(-2);
+	let formattedTime = hours.substr(-2) + ':' + minutes.substr(-2);
 	return formattedTime;
 }
 
@@ -243,67 +246,67 @@ function capitalizeFirstLetter(str)
 
 function formatTimestamp(timestamp)
 {
-	var isoStamp = timestamp.split('.')[0] + '+' + timestamp.split('.')[1].split('+')[1].match(/.{2}/g)[0] + ':00';
-	var depTime = new Date(isoStamp).getTime();
+	let isoStamp = timestamp.split('.')[0] + '+' + timestamp.split('.')[1].split('+')[1].match(/.{2}/g)[0] + ':00';
+	let depTime = new Date(isoStamp).getTime();
 	return depTime;
 }
 
 function formatLines(line)
 {
 	if (line === "U1") {
-		var img = document.createElement("img");
+		let img = document.createElement("img");
 		img.src = "img/u1.svg";
 		img.width = 40;
 		img.height = 40;
 		return img;
 	} else if (line === "U2") {
-		var img = document.createElement("img");
+		let img = document.createElement("img");
 		img.src = "img/u2.svg";
 		img.width = 40;
 		img.height = 40;
 		return img;
 	} else if (line === "U3") {
-		var img = document.createElement("img");
+		let img = document.createElement("img");
 		img.src = "img/u3.svg";
 		img.width = 40;
 		img.height = 40;
 		return img;
 	} else if (line === "U4") {
-		var img = document.createElement("img");
+		let img = document.createElement("img");
 		img.src = "img/u4.svg";
 		img.width = 40;
 		img.height = 40;
 		return img;
 	} else if (line === "U5") {
-		var img = document.createElement("img");
+		let img = document.createElement("img");
 		img.src = "img/u5.svg";
 		img.width = 40;
 		img.height = 40;
 		return img;
 	} else if (line === "U6") {
-		var img = document.createElement("img");
+		let img = document.createElement("img");
 		img.src = "img/u6.svg";
 		img.width = 40;
 		img.height = 40;
 		return img;
 	} else if (line === "WLB") {
-		var img = document.createElement("img");
+		let img = document.createElement("img");
 		img.src = "img/wlb.svg";
 		img.width = 40;
 		img.height = 40;
 		return img;
 	} else if (line.indexOf("D") > -1 || line.match(/^[0-9]+$/) != null) {
-		var element = document.createElement("span");
+		let element = document.createElement("span");
 		element.className = "tram";
 		element.innerHTML = line;
 		return element;
 	} else if (line.indexOf("A") > -1) {
-		var element = document.createElement("span");
+		let element = document.createElement("span");
 		element.className = "bus";
 		element.innerHTML = line;
 		return element;
 	} else if (line.indexOf("N") > -1) {
-		var element = document.createElement("span");
+		let element = document.createElement("span");
 		element.className = "nightline";
 		element.innerHTML = line;
 		return element;
@@ -324,9 +327,9 @@ function update()
 	document.getElementById("error").style.display = "none";
 	document.getElementById("container").style.opacity = "1";
 
-	var currentTime = new Date();
+	let currentTime = new Date();
 	document.getElementById('currentTime').innerHTML = (currentTime.getHours() < 10 ? '0' : '') + currentTime.getHours() + ":" + (currentTime.getMinutes() < 10 ? '0' : '') + currentTime.getMinutes();
-	var req = new XMLHttpRequest();
+	let req = new XMLHttpRequest();
 	req.open('GET', api_url);
 	req.onreadystatechange = function () {
 
