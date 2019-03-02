@@ -120,7 +120,7 @@ function display_table(table)
 
 function update_view(json)
 {
-	var table = make_table(["Departure", "Line", "Station", "Destination"]);
+	var table = make_table(["Latency", "Port", "Source", "Destination"]);
 	var mon;
 	if (json.data) {
 		mon = json.data.monitors;
