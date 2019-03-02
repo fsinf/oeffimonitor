@@ -136,6 +136,10 @@ function update_view(json)
 	if (flines != null) {
 		var fline_array = flines.toUpperCase().split(",");
 	}
+	var fdests = params.get("fdests");
+	if (fdests != null) {
+		var fdest_array = fdests.toLowerCase().split(",");
+	}
 
 	// XXX This part particularly unfinished:
 	// TODO sort by time
@@ -182,6 +186,11 @@ function update_view(json)
 
 			if (fline_array != null) {
 				if (!(fline_array.includes(mon[i].lines[l].name))) {
+					exclude = true;
+				}
+			}
+			if (fdest_array != null) {
+				if (!(fdest_array.some(substring => mon[i].lines[l].towards.toLowerCase().includes(substring)))) {
 					exclude = true;
 				}
 			}
