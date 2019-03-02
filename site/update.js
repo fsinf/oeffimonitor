@@ -134,7 +134,7 @@ function update_view(json)
 	var params = new URLSearchParams(document.location.search.substring(1));
 	var flines = params.get("flines"); //filter for transportation line(s)
 	if (flines != null) {
-		let fline_array = flines.toUpperCase().split(",");
+		var fline_array = flines.toUpperCase().split(",");
 	}
 
 	// XXX This part particularly unfinished:
