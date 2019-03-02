@@ -108,7 +108,7 @@ function display_table(table)
 	let parentElement = document.getElementById('container');
 
 	// dispose of the previous display table (if any)
-       	if ((overviewElement = document.getElementById('overview'))) {
+	   	if ((overviewElement = document.getElementById('overview'))) {
 		parentElement = overviewElement.parentElement;
 		parentElement.removeChild(overviewElement);
 	}
@@ -133,13 +133,13 @@ function update_view(json)
 	//fetch filter(s)
 	let params = new URLSearchParams(document.location.search.substring(1));
 	let flines = params.get("flines"); //filter for transportation line(s)
-    let fline_array;
+	let fline_array;
 
-    if (flines != null) {
+	if (flines != null) {
 		fline_array = flines.toUpperCase().split(",");
 	}
 	let fdests = params.get("fdests");
-    let fdest_array;
+	let fdest_array;
 	if (fdests != null) {
 		fdest_array = fdests.toLowerCase().split(",");
 	}
@@ -152,7 +152,7 @@ function update_view(json)
 		let unreachTime = walkTimes[mon[i].locationStop.properties.title] ? walkTimes[mon[i].locationStop.properties.title].unreachTime : 0;
 
 		for (let l = 0; l < lines.length; l++) {
-            let dep;
+			let dep;
 			if (mon[i].lines[l].towards !== "BETRIEBSSCHLUSS ! BENÜTZEN SIE BITTE DIE NIGHTLINE" &&
 				mon[i].lines[l].name !== "VRT") {
 				dep = mon[i].lines[l].departures.departure;
@@ -241,7 +241,7 @@ function formatTime(timestamp) {
 
 function capitalizeFirstLetter(str)
 {
-    return str.replace(/\w[^- ]*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+	return str.replace(/\w[^- ]*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 }
 
 function formatTimestamp(timestamp)
