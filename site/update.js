@@ -130,6 +130,11 @@ function update_view(json)
 
 	var values = [];
 
+	//fetch filter(s)
+	let params = new URLSearchParams(document.location.search.substring(1));
+	let flines = params.get("flines"); //filter for transportation line(s)
+	let fline_array = flines.toUpperCase().split(",");
+
 	// XXX This part particularly unfinished:
 	// TODO sort by time
 	for (var i = 0; i < mon.length; i++) {
@@ -173,10 +178,8 @@ function update_view(json)
 				exclude = true;
 			}
 
-			let params = new URLSearchParams(document.location.search.substring(1));
-			let flines = params.get("flines");
-			if (flines != null) {
-				if (!(flines.split(",").includes(mon[i].lines[l].name))) {
+			if (fline_array.length > 0) {
+				if (!(fline_array.includes(mon[i].lines[l].name))) {
 					exclude = true;
 				}
 			}
