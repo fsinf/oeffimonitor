@@ -36,12 +36,20 @@ Parameter    | where to get it
 
 TODO: Weather forecast is currently styled using a hardcoded css link, if the graphic seems to be not visible check the referenced .css in weather.svg
 
+### Weather icons
+
+icons from https://github.com/erikflowers/weather-icons
+
+they can be combined to a single file using combine.sh
+
 ### Theme support
 
 Enter the name of the appropriate folder for the css and assets in the ```server/settings.js``` file. It should be located under ````site/themes```.
-Contained in the repository are two themes:
+Contained in the repository are multiple themes:
 - ```metalab```: Design as used by metalab
 - ```nook```: Simplified design for use on a nook simple touch eInk Reader, black and white only
+- ```porz```: green/yellow theme
+- ```fsinf```: fsinf theme
 
 ### Debugging
 
@@ -60,6 +68,7 @@ Example:
 ```bash
 $ DEBUG_FD=3 server/httpd.js 3> debug.log
 ```
+
 ### Start from systemd
 (Taken from https://rocketeer.be/articles/deploying-node-js-with-systemd/)
 
