@@ -71,3 +71,36 @@ Then the Öffimonitor can be started using the systemd:
 ```
 
 Systemd will monitor the node process and restart the server as appropriate
+
+
+## Client installation (e.g. on a Raspberry Pi)
+
+```
+# install required packages
+apt install xserver-xorg-legacy x11-xserver-utils xinit chromium-browser openbox
+
+# copy startup files
+cp init-script/xinitrc /home/pi/.xinitrc
+cp init-script/oeffimonitor-client.service /etc/systemd/system/oeffimonitor-client.service
+
+# xinit needs access to tty
+usermod -aG tty pi
+```
+
+/etc/X11/Xwrapper.config needs to be modified:
+
+```
+allowed_users=anybody
+needs_root_rights=yes
+```
+
+### start oeffimonitor-client
+
+```
+# reload systemd and enable oeffimonitor-client
+systemctl daemon-reload
+systemctl enable oeffimonitor-client.service
+systemctl start oeffimonitor-client.service
+```
+
+to rotate the screen in a raspberry pi see option display\_rotate in /boot/config.txt

@@ -1,0 +1,21 @@
+# disable screen blanking and DPMS
+xset s off -dpms
+openbox &
+# wait that stuff is booted up
+sleep 3
+# run chromium
+exec /usr/bin/chromium-browser \
+     --user-data-dir=/dev/shm/chrome-profile \
+     --disk-cache-dir=/dev/shm/chrome-cache \
+     --app="https://oeffi.domain.tld/" \
+     --window-size=$(fbset -s | awk '$1 == "geometry" { print $2","$3 }') \
+     --start-fullscreen \
+     --disable \
+     --disable-infobars \
+     --disable-suggestions-service \
+     --disable-save-password-bubble \
+     --disable-bundled-ppapi-flash \
+     --disable-extensions \
+     --disable-notifications \
+     --no-pings \
+     --noerrdialogs
