@@ -1,24 +1,26 @@
 @font-face {
-	font-family:roboto;
+	font-family: 'Roboto Condensed';
 	src: url('../font/RobotoCondensed-Regular.ttf');
 }
 
 @font-face {
-	font-family:roboto;
+	font-family: 'Roboto Condensed';
 	font-weight: bold;
 	src: url('../font/RobotoCondensed-Bold.ttf');
 }
 
 body {
 	margin:0 0.5em 0 0.5em;
-	font-family: roboto, Helvetica, Arial, sans-serif;
+	font-family: 'Roboto Condensed', Helvetica, Arial, sans-serif;
 	background-color: #084023;
 	color: black;
 	font-size:45px;
 }
 
+/* Hide Unicode-Warning Symbol in front of headings by default, made visible by Javascript */
 span.error {
 	color:red;
+	font-family:sans-serif;
 	display:none;
 }
 
@@ -48,7 +50,7 @@ tbody > tr:nth-child(2n) { background: #ffd300; }
 /*tbody > tr:nth-child(2n+1) { background: #333; }*/
 td { border: none; }
 tr > td:nth-child(1) {
-    text-align: left;
+	text-align: left;
 }
 
 tr > td:nth-child(2) {
@@ -70,6 +72,35 @@ tr > td:nth-child(2) span {
 
 tr > td:nth-child(2) img { height: 80%; }
 tr > td:nth-child(3) { padding-right: 10px; }
+
+td.time:nth-child(1)::before {
+	content: "⚫\00a0";
+	opacity:0;
+}
+td.supersoon:nth-child(1)::before {
+	animation-name: blink;
+	animation-duration: 1.4s;
+	animation-iteration-count: infinite;
+	animation-fill-mode: both;
+	-webkit-animation-name: blink;
+	-webkit-animation-duration: 1.4s;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-fill-mode: both;
+	color: #c0392b;
+	opacity:1;
+}
+td.soon:nth-child(1)::before {
+	animation-name: blink;
+	animation-duration: 1.4s;
+	animation-iteration-count: infinite;
+	animation-fill-mode: both;
+	-webkit-animation-name: blink;
+	-webkit-animation-duration: 1.4s;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-fill-mode: both;
+	color: #27ae60;
+	opacity:1;
+}
 
 td:nth-of-type(2) {
 	padding:0 5px 0 5px;
@@ -97,7 +128,7 @@ td:nth-of-type(4) {
 }
 .bus {
 	padding: 0 3px;
-	background: black; /* Nook simple touch is only black and white */
+	background: black;
 	color: #FFF;
 }
 .nightline {
@@ -106,20 +137,23 @@ td:nth-of-type(4) {
 	color: #FFF;
 }
 
-body { overflow: hidden; }
+body {
+	overflow: hidden;
+}
 
 h1 {
 	font-size: 1.2em;
 	margin: 0.2em 0 0.2em 0;
 }
+
 #error {
-    font-size:1em;
+	font-size:1em;
 }
 
 td {
-    font-size: 1em;
-    overflow: hidden;
-    white-space: nowrap;
+	font-size: 1em;
+	overflow: hidden;
+	white-space: nowrap;
 }
 
 /* Weather forecast */

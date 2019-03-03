@@ -1,12 +1,12 @@
 @font-face {
 	font-family:roboto;
-	src: url('assets/RobotoCondensed-Regular.ttf');
+	src: url('../font/RobotoCondensed-Regular.ttf');
 }
 
 @font-face {
 	font-family:roboto;
 	font-weight: bold;
-	src: url('assets/RobotoCondensed-Bold.ttf');
+	src: url('../font/RobotoCondensed-Bold.ttf');
 }
 
 body {
