@@ -10,6 +10,9 @@ var walkTimes = {
 	"Franz-Josefs-Bahnhof": {"walkTime": 360, "unreachTime": 300}
 };
 
+// funnier table headers
+var tableHeaders = [ 'Latency', 'Port', 'Source', 'Destination' ];
+
 var exclusions = [
 // name: line name
 // station: station name

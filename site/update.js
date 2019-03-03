@@ -24,6 +24,68 @@
 
 var /*const*/ debug = false;
 
+if (typeof tableHeaders === 'undefined') {
+	var tableHeaders = ["Departure", "Line", "Station", "Destination"];
+}
+
+//fetch filter(s)
+var params = new URLSearchParams(document.location.search.substring(1));
+
+var flines = params.get("flines"); // filter for transportation line(s)
+var fline_array;
+if (flines != null) {
+	fline_array = flines.toUpperCase().split(",");
+}
+
+var fdests = params.get("fdests"); // filter for destinations
+var fdest_array;
+if (fdests != null) {
+	fdest_array = fdests.toLowerCase().split(",");
+}
+
+function check_excluded(name, station, towards) {
+	let exclude = false;
+	if (typeof exclusions !== 'undefined') {
+		for (let x = 0; x < exclusions.length; x++) {
+			if ('name' in exclusions[x]) {
+				// exclusion specifies different name
+				if (exclusions[x].name !== name) {
+					continue;
+				}
+			}
+
+			if ('station' in exclusions[x]) {
+				// exclusion specifies different station
+				if (exclusions[x].station !== station) {
+					continue;
+				}
+			}
+
+			if ('towards' in exclusions[x]) {
+				// exclusion specifies different destination
+				if (exclusions[x].towards !== towards) {
+					continue;
+				}
+			}
+
+			exclude = true;
+		}
+	}
+
+	if (fline_array != null) {
+		if (!(fline_array.includes(name))) {
+			exclude = true;
+		}
+	}
+	if (fdest_array != null) {
+		if (!(fdest_array.some(substring => towards.toLowerCase().includes(substring)))) {
+			exclude = true;
+		}
+	}
+
+	return exclude;
+}
+
 /**** table functions ****/
 /* these might be prettier in OO, but I really don't care enough right now */
 function make_table(head)
@@ -116,7 +178,7 @@ function display_table(table)
 
 function update_view(json)
 {
-	let table = make_table(["Latency", "Port", "Source", "Destination"]);
+	let table = make_table(tableHeaders);
 	let mon;
 	if (json.data) {
 		mon = json.data.monitors;
@@ -125,20 +187,6 @@ function update_view(json)
 	}
 
 	let values = [];
-
-	//fetch filter(s)
-	let params = new URLSearchParams(document.location.search.substring(1));
-	let flines = params.get("flines"); //filter for transportation line(s)
-	let fline_array;
-
-	if (flines != null) {
-		fline_array = flines.toUpperCase().split(",");
-	}
-	let fdests = params.get("fdests");
-	let fdest_array;
-	if (fdests != null) {
-		fdest_array = fdests.toLowerCase().split(",");
-	}
 
 	// XXX This part particularly unfinished:
 	// TODO sort by time
@@ -156,45 +204,9 @@ function update_view(json)
 				continue;
 			}
 
-			// exclude duplicated hosts (happens if you have multiple stations serve the same line)
-			let exclude = false;
-			for (let x = 0; x < exclusions.length; x++) {
-				if ('name' in exclusions[x]) {
-					// exclusion specifies different name
-					if (exclusions[x].name !== mon[i].lines[l].name) {
-						continue;
-					}
-				}
-
-				if ('station' in exclusions[x]) {
-					// exclusion specifies different station
-					if (exclusions[x].station !== mon[i].locationStop.properties.title) {
-						continue;
-					}
-				}
-
-				if ('towards' in exclusions[x]) {
-					// exclusion specifies different destination
-					if (exclusions[x].towards !== mon[i].lines[l].towards) {
-						continue;
-					}
-				}
-
-				exclude = true;
-			}
-
-			if (fline_array != null) {
-				if (!(fline_array.includes(mon[i].lines[l].name))) {
-					exclude = true;
-				}
-			}
-			if (fdest_array != null) {
-				if (!(fdest_array.some(substring => mon[i].lines[l].towards.toLowerCase().includes(substring)))) {
-					exclude = true;
-				}
-			}
-
-			if (exclude) {
+			// exclude duplicated entries (happens if you have multiple stations serve the same line)
+			// also excludes filtered lines/destinations
+			if (check_excluded(mon[i].lines[l].name, mon[i].locationStop.properties.title, mon[i].lines[l].towards)) {
 				// skip this entry
 				continue;
 			}
