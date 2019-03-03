@@ -10,8 +10,10 @@ var walkTimes = {
 	"Franz-Josefs-Bahnhof": {"walkTime": 360, "unreachTime": 300}
 };
 
-// exclude { LINE , DESTINATION }
 var exclusions = [
+// name: line name
+// station: station name
+// towards: line destination
 	{ "name": "WLB" },
 	{ "towards": "Oper, Karlsplatz U" },
 	{ "name": "1", "station": "Karlsplatz", "towards": "Oper, Karlsplatz U" },
