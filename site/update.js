@@ -170,7 +170,7 @@ function display_table(table)
 	let parentElement = document.getElementById('container');
 
 	// dispose of the previous display table (if any)
-	   	if ((overviewElement = document.getElementById('overview'))) {
+	if ((overviewElement = document.getElementById('overview'))) {
 		parentElement = overviewElement.parentElement;
 		parentElement.removeChild(overviewElement);
 	}
@@ -265,30 +265,35 @@ function formatTimestamp(timestamp)
 
 function formatLines(line)
 {
-	let img = null;
+	let imgElement = null;
 	let element = null;
 
+	// href for filter
+	let linkElement = document.createElement('a');
+	linkElement.href = "./?flines=" + line;
+	linkElement.title = "filter by " + line;
+
 	if (line === "U1") {
-		img = document.createElement("img");
-		img.src = "img/u1.svg";
+		imgElement = document.createElement("img");
+		imgElement.src = "img/u1.svg";
 	} else if (line === "U2") {
-		img = document.createElement("img");
-		img.src = "img/u2.svg";
+		imgElement = document.createElement("img");
+		imgElement.src = "img/u2.svg";
 	} else if (line === "U3") {
-		img = document.createElement("img");
-		img.src = "img/u3.svg";
+		imgElement = document.createElement("img");
+		imgElement.src = "img/u3.svg";
 	} else if (line === "U4") {
-		img = document.createElement("img");
-		img.src = "img/u4.svg";
+		imgElement = document.createElement("img");
+		imgElement.src = "img/u4.svg";
 	} else if (line === "U5") {
-		img = document.createElement("img");
-		img.src = "img/u5.svg";
+		imgElement = document.createElement("img");
+		imgElement.src = "img/u5.svg";
 	} else if (line === "U6") {
-		img = document.createElement("img");
-		img.src = "img/u6.svg";
+		imgElement = document.createElement("img");
+		imgElement.src = "img/u6.svg";
 	} else if (line === "WLB") {
-		img = document.createElement("img");
-		img.src = "img/wlb.svg";
+		imgElement = document.createElement("img");
+		imgElement.src = "img/wlb.svg";
 	} else if (line.indexOf("D") > -1 || line.match(/^[0-9]+$/) != null) {
 		element = document.createElement("span");
 		element.className = "tram";
@@ -300,13 +305,16 @@ function formatLines(line)
 		element.className = "nightline";
 	}
 
-	if (img != null) {
-		img.width = 40;
-		img.height = 40;
-		return img;
+	if (imgElement != null) {
+		imgElement.width = 40;
+		imgElement.height = 40;
+		imgElement.alt = line;
+		linkElement.append(imgElement);
+		return linkElement;
 	} else if (element != null) {
 		element.innerHTML = line;
-		return element;
+		linkElement.append(element);
+		return linkElement;
 	} else {
 		return line;
 	}
@@ -345,9 +353,9 @@ function update()
 		} catch (e) {
 			if (e instanceof SyntaxError) // invalid json document received
 				document.getElementById("trafficError").style.display = "block";
-				//document.getElementById("error").style.display = "block";
-				//document.getElementById("container").style.opacity = "0.2";
-				console.log('api returned invalid json')/*TODO*/;
+			//document.getElementById("error").style.display = "block";
+			//document.getElementById("container").style.opacity = "0.2";
+			console.log('api returned invalid json')/*TODO*/;
 			//throw e;
 		}
 	};
