@@ -117,14 +117,18 @@ function make_row(table, entry)
 
 	if (waitMs < 0 || waitMs < entry.unreachTime*1000) { return false; }
 
+	// when to leave
 	let tr = document.createElement("tr");
 	let tdTime = document.createElement("td");
 	if (waitMs < entry.walkTime * 1000) {
 		tdTime.className = "time supersoon";
+		tdTime.title = "Run, Forrest, RUN!";
 	} else if (waitMs < (entry.walkTime + 180) * 1000) {
 		tdTime.className = "time soon";
+		tdTime.title = "time to go";
 	} else {
 		tdTime.className = "time";
+		tdTime.title = "chill, no need to hurry";
 	}
 
 	let tdTimeString = document.createElement("b");
