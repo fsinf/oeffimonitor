@@ -4,7 +4,7 @@ openbox &
 # wait that stuff is booted up
 sleep 3
 # run chromium
-exec /usr/bin/chromium-browser \
+exec /usr/bin/chromium \
      --user-data-dir=/dev/shm/chrome-profile \
      --disk-cache-dir=/dev/shm/chrome-cache \
      --app="https://oeffi.domain.tld/" \
