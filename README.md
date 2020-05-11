@@ -86,7 +86,7 @@ Systemd will monitor the node process and restart the server as appropriate
 
 ```
 # install required packages
-apt install xserver-xorg-legacy x11-xserver-utils xinit chromium-browser openbox
+apt install xserver-xorg-legacy x11-xserver-utils xinit chromium openbox
 
 # copy startup files
 cp init-script/xinitrc /home/pi/.xinitrc
