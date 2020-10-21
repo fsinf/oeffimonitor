@@ -1,4 +1,4 @@
-var settings = require("../settings");
+var settings = require("../config/settings");
 
 module.exports = function(app, route) {
 	app.get(route, function indexPageController(req, res, next) {

@@ -1,6 +1,6 @@
 var http = require('http');
 var debug = require('debug')('server:api');
-var settings = require("../settings");
+var settings = require("../config/settings");
 var Arc = require('../lib/arc.js');
 var arc = new Arc({ apiUrl: settings.api_urls.weather });
 

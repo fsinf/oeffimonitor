@@ -2,7 +2,7 @@
 const http = require('http');
 const debugFactory = require('debug');
 const EventEmitter = require('events');
-const settings = require("../settings");
+const settings = require("../config/settings");
 const _ = require('lodash');
 var arcInstanceCounter = 0;
 

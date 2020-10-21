@@ -7,7 +7,7 @@
 var app = require('./app');
 var debug = require('debug')('server:httpd');
 var http = require('http');
-var settings = require(__dirname + '/settings.js');
+var settings = require(__dirname + '/config/settings.js');
 
 app.set('port', settings.listen_port);
 var server = http.createServer(app);

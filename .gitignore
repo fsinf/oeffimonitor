@@ -1,4 +1,6 @@
 .*.sw?
 server/settings.js
 site/settings.js
+server/config/settings.js
+site/config/settings.js
 .vagrant
