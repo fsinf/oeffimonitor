@@ -312,7 +312,8 @@ function formatLines(line)
 		linkElement.append(imgElement);
 		return linkElement;
 	} else if (element != null) {
-		element.innerHTML = line;
+		// this is actually a utf8 thin space
+		element.innerHTML = " "+line+" ";
 		linkElement.append(element);
 		return linkElement;
 	} else {
