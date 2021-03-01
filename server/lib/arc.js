@@ -1,5 +1,5 @@
 "use strict";
-const http = require('http');
+const https = require('https');
 const debugFactory = require('debug');
 const EventEmitter = require('events');
 const settings = require("../config/settings");
@@ -164,7 +164,7 @@ class Arc extends EventEmitter {
 
 		this.updating = true;
 		this.log("Send web api request");
-		var request = http.get(this.options.apiUrl, processResponse);
+		var request = https.get(this.options.apiUrl, processResponse);
 		request
 			.on('error', onError)
 			.setTimeout(this.options.timeout,onTimeout);
