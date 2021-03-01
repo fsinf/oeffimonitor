@@ -92,9 +92,7 @@ td:nth-of-type(4) {
 }
 
 .tram {
-	-webkit-border-radius: 50%;
-	-moz-border-radius: 50%;
-	border-radius: 50%;
+	border-radius: 50% 0 0 0;
 	background: #000;
 	color: #FFF;
 }
