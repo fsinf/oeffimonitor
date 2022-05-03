@@ -92,6 +92,8 @@ apt install xserver-xorg-legacy x11-xserver-utils xinit chromium openbox
 cp init-script/xinitrc /home/pi/.xinitrc
 cp init-script/oeffimonitor-client.service /etc/systemd/system/oeffimonitor-client.service
 
+# alternatively: surf -F -d -K -p https://oeffi.fsinf.at/news/
+
 # xinit needs access to tty
 usermod -aG tty pi
 ```

@@ -186,6 +186,10 @@ function update_view(json)
 	let mon;
 	if (json.data) {
 		mon = json.data.monitors;
+		if (debug && json.data.trafficInfo) {
+			console.log("Traffic Info exists.");
+			console.log(json.data.trafficInfo);
+		}
 	} else {
 		mon = [];
 	}
