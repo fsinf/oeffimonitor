@@ -9,23 +9,28 @@ block head
 	script(type='text/javascript', src='update.js')
 	script(type='text/javascript', src='config/settings.js')
 	link(href='/themes/' + theme + '/css/style.css', type='text/css', rel='stylesheet')
+	if showWeather
+		link(href='/themes/' + theme + '/css/weather.css', type='text/css', rel='stylesheet')
 
 block content
 	if showWeather
 		#weather
+			object.weatherIcon(type='image/svg+xml', data='/img/weather.svg', style='display:none;')
 			h1
 				span.error#weatherError ⚠
 				| #{weather_title}
 				span#lastWeatherUpdate
 			#forecast
 				#current(class="weatherBlock")
-					object#currentIcon(class="currentIcon", type='image/svg+xml', data='/themes/' + theme + '/img/weather.svg')
+					svg#currentIcon(version='1.1', xmlns='http://www.w3.org/2000/svg', xmlns:xlink='http://www.w3.org/1999/xlink', x='0px', y='0px', viewBox='0 0 30 30', style='enable-background:new 0 0 30 30;', xml:space='preserve')
+						use.weatherIcon
 					hr(class="weatherHR")
 					div#currentTime now
 					div#currentTemperature
 				each val in [0,1,2,3,4,5]
 					div(class="weatherBlock")
-						object#forecastIcon(class="forecastIcon", type='image/svg+xml', data='/themes/' + theme + '/img/weather.svg')
+						svg.forecastIcon(version='1.1', xmlns='http://www.w3.org/2000/svg', xmlns:xlink='http://www.w3.org/1999/xlink', x='0px', y='0px', viewBox='0 0 30 30', style='enable-background:new 0 0 30 30;', xml:space='preserve')
+							use.weatherIcon
 						hr(class="weatherHR")
 						div(class="forecastTime")
 						div(class="forecastTemperature")

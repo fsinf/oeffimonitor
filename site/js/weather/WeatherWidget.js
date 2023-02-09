@@ -63,9 +63,9 @@ var WeatherWidget = (function () {
 		}
 
 		function setIcon(node, iconId) {
-			svg = node.contentDocument.getElementById('weatherIcon');
+			svg = node.getElementsByClassName('weatherIcon')[0];
 			if (svg !== null) {
-				svg.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', '#wi-'+iconId);
+				svg.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', '/img/weather.svg#wi-'+iconId);
 			}
 		}
 

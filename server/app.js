@@ -23,7 +23,13 @@ _.each(routes, function(controller, route) {
 	app.use(route,controller(app, route));
 });
 
-app.use(express.static(path.join(__dirname, '../site')));
+app.use(express.static(path.join(__dirname, '../site'), {
+	maxAge: 86400000,
+	setHeaders: function(res, path) {
+		// cache for one day
+		res.setHeader("Expires", new Date(Date.now() + 86400000).toUTCString());
+	}
+}));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -367,6 +367,7 @@ function update()
 	req.send();
 }
 
+window.addEventListener("load", function () { weatherUpdateFunction(); });
 document.addEventListener("DOMContentLoaded", updateOeffiTable);
 function updateOeffiTable() {
 	update();
